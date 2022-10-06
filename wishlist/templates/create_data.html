@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>Create Data</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "login">
+    
+    <h1>Create Data</h1>  
+
+        <form method="POST" id="add">  
+            {% csrf_token %}  
+            <table>  
+                <tr>
+                    <h3>Nama Barang</h3>
+                    <input type="text" id="name" name="nama" placeholder="nama barang">
+                </tr>
+                <tr>
+                    <h3>Harga Barang</h3>
+                    <input type="text" id="price" name="harga" placeholder="harga barang">
+                </tr>
+                <tr>
+                    <h3>Deskripsi</h3>
+                    <input type="text" id="desc" name="deskripsi" placeholder="deskripsi barang">
+                </tr>
+            </table>  
+        </form>
+        <button>add</button>
+
+    <div class="output"></div>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        // get the value of CSRF token
+        var CSRFtoken = $('input[name=csrfmiddlewaretoken]').val();
+        var name = document.getElementById("name").value;
+        var price = document.getElementById("price").value;
+        var desc = document.getElementById("desc").value;
+
+        $.post("/wishlist/ajax/submit/",{
+            item_name: name,
+            item_price: price,
+            item_desc: desc,
+            csrfmiddlewaretoken: CSRFtoken
+        });
+    });
+});
+</script>
+
+{% endblock content %}
