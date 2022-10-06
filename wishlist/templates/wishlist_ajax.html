@@ -76,6 +76,15 @@ $(document).ready(function(){
 $(document).ready(function(){
     $("#get").click(function(){
         $.get("/wishlist/json", function(data) {
+		$(".data_table").empty();
+        	$(".data_table").append(
+            		"<tr>" + 
+                		"<th>Nama Barang</th>"+
+                		"<th>Harga Barang</th>"+
+                		"<th>Deskripsi</th>"+
+                		'<button id="get">Get Data</button>'+
+            		"</tr>"
+            	);
             for(var i = 0 ; i < Object.keys(data).length; i++){
                 $(".data_table").append(
                 "<tr>" +
